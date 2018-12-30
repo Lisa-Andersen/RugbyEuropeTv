@@ -35,43 +35,11 @@ def Main_Menu():
     for name,url,icon,fanart,desc in Regex:
         if 'php' in url:
             Menu(name,url,1,icon,fanart,desc)
-        elif name == 'Search':
-         	Menu('Search',url,3,icon,fanart,desc)
-        elif 'strm' in url:
-            PlayStrm(name,url,2,icon,fanart,desc)
         else:
-            Play(name,url,2,icon,fanart,desc)
+            PlayStrm(name,url,2,icon,fanart,desc)
     setView('tvshows', 'Media Info 3')
     f.close()			
 	
-def Second_Menu(url):
-    OPEN = Open_Url(url)
-    Regex = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(OPEN)
-    for name,url,icon,fanart,desc in Regex:
-        if 'php' in url:
-            Menu(name,url,1,icon,fanart,desc)
-        elif name == 'Search':
-         	Menu('Search',url,3,icon,fanart,desc)	
-        else:
-            Play(name,url,2,icon,fanart,desc)
-    setView('tvshows', 'Media Info 3')			
-def Search():
-    Search_Name = Dialog.input('Search', type=xbmcgui.INPUT_ALPHANUM)
-    Search_Title = Search_Name.lower()
-    filenames = ['demosearch1','demosearch2','demosearch3','demosearch4']
-    for file_Name in filenames:
-        search_URL = Base_Url + file_Name + '.php'
-        OPEN = Open_Url(search_URL)
-        if OPEN != 'Opened':			
-            Regex = re.compile('<NAME>(.+?)</NAME><URL>(.+?)</URL><ICON>(.+?)</ICON><FANART>(.+?)</FANART><DESC>(.+?)</DESC>').findall(OPEN)
-            for name,url,icon,fanart,desc in Regex:
-                if Search_Title in name.lower():
-                    if 'php' in url:
-                        Menu(name,url,1,icon,fanart,desc)
-                    else:
-                        Play(name,url,2,icon,fanart,desc)
-					
-		setView('tvshows', 'Media Info 3')
 ####################################################################PROCESSES###################################################
 def Open_Url(url):
     req = urllib2.Request(url)
@@ -101,16 +69,6 @@ def Menu(name,url,mode,iconimage,fanart,description):
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
         liz.setProperty( "Fanart_Image", fanart )
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz,isFolder=True)
-        return ok
-        xbmcplugin.endOfDirectory(int(sys.argv[1]))
-		
-def Play(name,url,mode,iconimage,fanart,description):
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-        liz.setProperty( "Fanart_Image", fanart )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
