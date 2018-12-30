@@ -115,18 +115,18 @@ def Play(name,url,mode,iconimage,fanart,description):
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def PlayStrm(name,url,mode,iconimage,fanart,description):
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
-        ok=True
-		if(url == "error")
-			xbmcgui.Dialog().ok("rugbyEurope", "Error - the video cannot be played!")
-			return False;
-		else
-	        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-    	    liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
-   		    liz.setProperty( "Fanart_Image", fanart )
-        	ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz,isFolder=False)
-        	return ok
-        xbmcplugin.endOfDirectory(int(sys.argv[1]))
+    u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
+    ok=True
+    if url == "error":
+        xbmcgui.Dialog().ok("rugbyEurope", "Error - the video cannot be played!")
+        return False;
+    else:
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description } )
+        liz.setProperty( "Fanart_Image", fanart )
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz,isFolder=False)
+    return ok
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
         
 		
 def GetPlayerCore(): 

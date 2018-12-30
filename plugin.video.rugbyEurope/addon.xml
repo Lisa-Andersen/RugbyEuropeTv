@@ -2,7 +2,8 @@
 <addon id="plugin.video.rugbyEurope" name="Rugby Europe" version="0.0.1" provider-name="Demo">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.urlresolver"  version="5.0.20"/>
+	<import addon="script.module.beautifulsoup4" version="3.3.0"/>
+	<import addon="script.module.urlresolver"/>
 	<import addon="script.module.addon.common" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
